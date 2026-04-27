@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/2026/mellon/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=2026/mellon/livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Lesson 2: Georeferencing - Some tools for doing public geospatial humanities</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="How to overlay digital maps on real-world geographies" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="http://localhost:1313/2026/mellon/posts/2-georeferencing/">
+  <meta property="og:site_name" content="Some tools for doing public geospatial humanities">
+  <meta property="og:title" content="Lesson 2: Georeferencing">
+  <meta property="og:description" content="How to overlay digital maps on real-world geographies">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-04-27T02:01:58+05:30">
+    <meta property="article:modified_time" content="2026-04-27T02:01:58+05:30">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lesson 2: Georeferencing">
+  <meta name="twitter:description" content="How to overlay digital maps on real-world geographies">
+
+        <link href="http://localhost:1313/2026/mellon/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:1313/2026/mellon/css/main.c2d3084b93a4894d8e4ab2c01f26e5d70cde629e3a3929a98415d12f25cc9c1b.css" />
+</head>
+<body>
+        <div class="content">
+<header>
+<div class="main">
+		<a href="http://localhost:1313/2026/mellon">Some tools for doing public geospatial humanities</a>
+	</div>
+	<i>A workshop for the Mellon Humanities Postdoctoral Fellowship Program</i>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title" style="font-size:2.4em;">Lesson 2: Georeferencing</h1>
+          <div class="meta">Posted on Apr 27, 2026</div>
+        </div>
+        
+        <section class="body">
+          
+
+<div class='callout callout-custom' style='background-color:rgb(244, 228, 245); border: 1px dotted #d340e0;'>
+  <div class="callout-inner">
+    
+    📚 <u>Lesson plan</u>
+    <br />
+    This lesson introduces core concepts associated with georeferencing
+    
+    </div>
+</div>
+
+<nav class="toc">
+  <details open>
+    <summary>Contents</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#georeferencing">Georeferencing</a></li>
+    <li><a href="#why-georeference">Why georeference?</a></li>
+    <li><a href="#georeferencing-methods">Georeferencing methods</a></li>
+    <li><a href="#iiif-review">IIIF review</a></li>
+    <li><a href="#iiif-powered-georeferencing">IIIF-powered georeferencing</a></li>
+    <li><a href="#finding-iiif-maps">Finding IIIF maps</a></li>
+  </ul>
+</nav>
+  </details>
+</nav>
+<h2 id="georeferencing">Georeferencing</h2>
+<p><a href="https://en.wikipedia.org/wiki/Georeferencing">Georeferencing</a> describes the process of overlaying scanned map images on their real-world locations. While this practice emerged as a way of transforming aerial and satellite photography into spatial data, it&rsquo;s commonly used to place historic maps on modern ones and compare change over time.</p>
+<p>The core principle behind georeferencing is the creation of <strong>control points</strong>. Control points correlate the pixels in source imagery with geographic coordinates in the real world.</p>
+<p>A simple control point pair might resemble:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csv" data-lang="csv"><span style="display:flex;"><span><span style="color:#e6db74">xy</span>,<span style="color:#e6db74">           latlon</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">[9222</span>,<span style="color:#e6db74">2190]</span>,<span style="color:#e6db74">  [-70.93986</span>,<span style="color:#e6db74">42.46188]</span>
+</span></span></code></pre></div><p>This is kind of confusing, but it&rsquo;s a pair of pairs: the <code>xy</code> pair <code>[9222,2190]</code> specifies the location of a control point on an image, while the <code>latlon</code> pair <code>[-70.93986,42.46188]</code> specifies the corresponding location in geographic space (e.g., latitude and longitude).</p>
+<p>If you create enough control points, you can overlay a map in geographic space. The software will overlay it for you, based on the spatial transformation algorithm that you want to use.</p>
+<p>For standard transformations (like a &ldquo;polynomial&rdquo; transformation), 3-4 control points should suffice. More complex transformation algorithms (like &ldquo;thin plate spline) require more points.</p>
+<p>Below, check out a georeferenced urban atlas from the Leventhal Center&rsquo;s collections:</p>
+<iframe src="https://viewer.allmaps.org/?url=https%3A%2F%2Fannotations.allmaps.org%2Fmanifests%2F23379602e8187445" width=100% height=500px></iframe>
+<p>This atlas is georeferenced and displayed in a tool called <strong>Allmaps</strong>, which we&rsquo;ll talk more about soon.</p>
+<h2 id="why-georeference">Why georeference?</h2>
+<p>Georeferencing scanned maps enables powerful spatial analysis. For example, you can:</p>
+<ol>
+<li>Extract information from a map, such as locations of topographic features like villages, mountains, rivers, or roads</li>
+<li>Compare or verify features by overlaying two maps</li>
+<li>Create a <em>mosaic</em> for viewing multiple sheets at once in large map series</li>
+</ol>
+<p>The Leventhal Center uses georeferencing of urban atlases in our <a href="https://atlascope.org">Atlascope</a> tool.</p>
+<p>Our team has georeferenced and mosaiqued over <strong>157</strong> urban atlases in the greater Boston area, making it easy to compare change over time across dozens of Massachusetts towns. Try it out below:</p>
+<iframe src="https://atlascope.org" width=100% height=500px></iframe>
+<p>Elsewhere, the <a href="https://uwm.edu/libraries/agsl/">American Geographical Society Library</a> (AGSL) at the University of Wisconsin-Milwaukee used Sanborn fire insurance maps to create a <a href="https://webgis.uwm.edu/agsl/sanborn/">Sanborn Web Map</a>. They&rsquo;ve also georeferenced aerial photography in their <a href="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712">Operation Birds Eye</a> discovery application.</p>
+<iframe src="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712" width=100% height=400px></iframe>
+<!-- <a href="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712" target="blank">
+
+![Operation bird's eye](../../images/birdseye.png)
+
+</a> -->
+<h2 id="georeferencing-methods">Georeferencing methods</h2>
+<p>Traditional georeferencing involves <strong>GIS</strong> or &ldquo;geographic information systems.&rdquo;</p>
+<p>Georeferencing in GIS requires downloading software (like QGIS or ArcGIS Pro), uploading source files to the software, creating the . For more detailed background, see <a href="https://gistbok-topics.ucgis.org/DC-01-030"><em>Georeferencing and Georectification</em></a> in the GIS&amp;T Body of Knowledge.</p>
+<p>Thanks to modern web-mapping tools, the process of georeferencing is more accessible to non-experts. For instance, the platform <a href="https://oldinsurancemaps.net/">OldInsuranceMaps.net</a>&mdash;designed and built by Adam Cox&mdash;provides an interface for crowdsourced georeferencing of Sanborn maps across the entire United States.</p>
+<a href="https://docs.oldinsurancemaps.net/getting-started/georeferencing" target="blank">
+<p><img src="https://docs.oldinsurancemaps.net/images/example-georef-alex-1900.jpg" alt="OIM platform"></p>
+</a>
+<p>This workshop uses <a href="https://allmaps.org">Allmaps</a>, a web-based georeferencing tool, to get started with georeferencing. The Allmaps software depends on something called <a href="https://iiif.io">IIIF</a>&mdash;but what does <em>that</em> mean?</p>
+<h2 id="iiif-review">IIIF review</h2>
+<p>As discussed in the <a href="../../posts/1-iiif">first lesson</a>, <strong>IIIF</strong> describes a set of open standards for delivering high-quality, attributed digital objects across the web. IIIF provides a consistent way for institutions to share digital images, maps, manuscripts, artworks, and even audio/visual files across different platforms. Rather than locking media inside specific viewers or software tools, IIIF offers a standardized, flexible method for delivering these resources to any compatible application.</p>
+<p>This means:</p>
+<ol>
+<li>A digitized map from one library can be viewed side-by-side with one from another institution.</li>
+<li>A scholar can annotate or compare high-resolution images without downloading large files.</li>
+<li>Tools like <a href="https://projectmirador.org/">Mirador</a> and <a href="https://universalviewer.io/">Universal Viewer</a> can all read the same IIIF content.</li>
+</ol>
+<p>At its core, IIIF enables <em>interoperability</em>, making it easier for cultural heritage institutions, educators, and developers to build rich user experiences around media from all over the world.</p>
+<h2 id="iiif-powered-georeferencing">IIIF-powered georeferencing</h2>
+<p><strong>Allmaps</strong> is a IIIF-powered georeferencing software. To use it, you don&rsquo;t have to download any software, upload any images, or learn how to use a geographic information system. All you need is a IIIF Manifest, and you can warp maps directly in a web browser. To read more about the Allmaps project, <a href="https://allmaps.org">check out the main site</a>.</p>
+<p>This workshop focuses on two applications in the Allmaps platform: <strong>Editor</strong> and <strong>Viewer</strong>.</p>
+<p><a href="https://editor.allmaps.org">Allmaps Editor</a> provides an interface for creating control points and overlaying IIIF maps in the real world. When you open the webpages, you&rsquo;ll see maps hosted by various Allmaps partners that are waiting to be georeferenced. <a href="https://viewer.allmaps.org">Allmaps Viewer</a> provides an application for viewing georeferenced IIIF maps.</p>
+<p>We&rsquo;ll talk more about both of these in the next lesson.</p>
+<h2 id="finding-iiif-maps">Finding IIIF maps</h2>
+<p>You can use Allmaps to georeference any IIIF map.</p>
+<p>To georeference a map from the Leventhal Center, simply pick a map from the <a href="https://collections.leventhalmap.org/">Center&rsquo;s digital collections portal</a> and select &ldquo;Georeference this map&rdquo; on the right-hand side of the screen.</p>
+<p><img src="../../images/rumsey.png" alt="right"></p>
+<p>Other websites may require more sleuthing to find the manifest. On the David Rumsey Collection, for instance, the IIIF manifest is listed under the <strong>share</strong> menu:</p>
+<p>The <a href="https://seige.digital/en/detektiiif/">DetektIIIF browser extension</a> is an exceptional resource for quickly identifying the IIIF Manifest on any given page.</p>
+<p>Finally, the Allmaps project publishes a running list of <a href="https://github.com/allmaps/iiif-map-collections/blob/main/iiif-map-collections.yml">IIIF map collections</a>, which is a great starting point for finding IIIF maps.</p>
+
+
+
+<p><strong>75</strong> collections and counting, including:</p>
+<div class="iiif-collections-grid" style="grid-template-columns: repeat(3, 1fr);">
+
+  
+  <a class="iiif-card" href="https://www.europeana.eu/nl/search?qf=collection%3Amap&amp;query=&amp;view=grid" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">1</code> Europeana</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://maps.nls.uk/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">2</code> National Library of Scotland</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://earthworks.stanford.edu/catalog?featured=scanned_maps&amp;q=" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">3</code> Stanford Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.digitalcommonwealth.org/search?f%5Bgenre_basic_ssim%5D%5B%5D=Maps" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">4</code> Digital Commonwealth - Massachusetts Collections…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://collections.leventhalmap.org/search?utf8=%E2%9C%93&amp;q=" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">5</code> Leventhal Map &amp; Education Center</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.davidrumsey.com/luna/servlet/view/all" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">6</code> David Rumsey Map Collection</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digitalcollections.library.miami.edu/digital/search/searchterm/maps!Maps/field/genre!genre/mode/exact!exact/conn/and!and/order/title/ad/asc" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">7</code> University of Miami Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">8</code> Rotterdams Publiek (kaarten van Stadsarchief…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digitalcollections.universiteitleiden.nl/islandora/search?type=dismax&amp;islandora_solr_search_navigation=0&amp;f[0]=RELS_EXT_isMemberOfCollection_uri_ms:%22info%5c:fedora%5c/collection%5c:ubl_maps%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">9</code> Leiden University</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.loc.gov/maps/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">10</code> Library of Congress Maps</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://researchworks.oclc.org/iiif-explorer/search?q=collection.id%3Ahttps%3A%2F%2Fresearchworks.oclc.org%2Fdigital%2Fdataset%2F21033_krt" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">11</code> Universiteitsbibliotheek, Vrije Universiteit…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://researchworks.oclc.org/iiif-explorer/search?q=collection.id%3Ahttps%3A%2F%2Fresearchworks.oclc.org%2Fdigital%2Fdataset%2F21045_coll25" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">12</code> Wageningen University &amp; Research: Map Collection…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://researchworks.oclc.org/iiif-explorer/search?q=collection.id%3Ahttps%3A%2F%2Fresearchworks.oclc.org%2Fdigital%2Fdataset%2F21045_coll21" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">13</code> Wageningen University &amp; Research: Old Maps and…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://researchworks.oclc.org/iiif-explorer/search?q=collection.id%3Ahttps%3A%2F%2Fresearchworks.oclc.org%2Fdigital%2Fdataset%2F21053_Kaarten" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">14</code> University of Groningen</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://maps.princeton.edu/?f%5Baccess%5D%5B%5D=public&amp;f%5Blayer_geom_type_s%5D%5B%5D=Image&amp;layer_geom_type_s%5B%5D=Image&amp;search_field=all_fields" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">15</code> Princeton University Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.e-rara.ch/search/quick?query=karte&amp;facets=type%3D%22cartographic%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">16</code> e-rara, the platform for digitized rare books from…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://polona.pl/search/?filters=category:maps,public:1,hasTextContent:0" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">17</code> Polona</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www5.kb.dk/maps/kortsa/2012/jul/kortatlas/subject206/da/?notAfter=&amp;notBefore=&amp;q=&amp;search_field=all_fields" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">18</code> Det Kgl. Bibliotek: Digitale Samlinger</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digitalcollections.library.harvard.edu/catalog?f%5BresourceType%5D%5B%5D=cartographic&amp;search_field=all_fields" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">19</code> Harvard Library Digital Collections</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital.iai.spk-berlin.de/viewer/search/-/-/1/-/MD_MATERIAL%3AKarte/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">20</code> Ibero-Amerikanisches Institut</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital.blb-karlsruhe.de/Karten/topic/view/178828" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">21</code> Badische Landesbibliothek Karlsruhe</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://gallica.bnf.fr/html/und/cartes/cartes?mode=desktop" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">22</code> Gallica, Bibliothèque nationale de France</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital.bodleian.ox.ac.uk/collections/maps/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">23</code> Bodleian Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.e-manuscripta.ch/emanus/maps/nav/classification/642361" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">24</code> e-manuscripta.ch</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.wdl.org/en/search/?item_type=map" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">25</code> World Digital Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://collections.lib.utexas.edu/?f%5Bdisplay_type_ms%5D%5B%5D=Maps&amp;q=&amp;search=&amp;search_field=search" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">26</code> University of Texas Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://orka.bibliothek.uni-kassel.de/viewer/browse/-/1/-/DC:kartenundplaene/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">27</code> Orka, Universität Kassel</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://metadata.library.illinois.edu/collections#q=&amp;fq%5B%5D=local_facet_repository%3AMap%20Library&amp;q=&amp;sort=" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">28</code> Illinois University Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://images.is.ed.ac.uk/luna/servlet/UoEcha~1~1" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">29</code> University of Edinburgh</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://collections.library.yale.edu/catalog?f%5Bgenre_ssim%5D%5B%5D=Maps&amp;q=&amp;search_field=all_fields" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">30</code> Yale University Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital.zlb.de/viewer/search/-/%28DC%3A%22berlin.stadtplaenestadtansichten%22%29/1/SORT_YEARPUBLISH/-/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">31</code> Zentral- und Landesbibliothek Berlin</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.uu.nl/en/utrecht-university-library-special-collections/collections/maps-and-atlases" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">32</code> Utrecht University Library Special Collections</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://archive.org/details/cshtext?and[]=subject%3A%22CSH&#43;Map&#43;Digitization&#43;Project%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">33</code> Center for Sacramento History</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://mdlcollections.library.utoronto.ca/islandora/search?page=5&amp;islandora_solr_search_navigation=0&amp;f%5B0%5D=RELS_EXT_isMemberOfCollection_uri_ms%3A%22info%5C%3Afedora%5C/mdl%5C%3Amaps%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">34</code> University of Toronto Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://jcb.lunaimaging.com/luna/servlet/JCBMAPS~1~1" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">35</code> The John Carter Brown Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital.lib.berkeley.edu/browse-collections" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">36</code> Berkeley Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://open.library.ubc.ca/search?q=*&amp;p=0&amp;sort=0&amp;view=2&amp;perPage=0&amp;dBegin=&amp;dEnd=&amp;c=7&amp;genre=Maps&amp;type=Still%20Image" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">37</code> University of British Columbia</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digital-beta.staatsbibliothek-berlin.de/suche?category%5B0%5D=Karten&amp;queryString=%2A&amp;fulltext=" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">38</code> Staatsbibliothek zu Berlin</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://beeldbank.cultureelerfgoed.nl" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">39</code> Rijksdienst voor het Cultureel Erfgoed</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://archief.amsterdam/beeldbank" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">40</code> Stadsarchief Amsterdam</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://collections.lib.uwm.edu/digital/collection/agdm/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">41</code> University of Wisconsin-Milwaukee Libraries -…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.goudatijdmachine.nl/data/collection/ark:/60537/bb25wx" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">42</code> Gouda Tijdmachine</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://digitalcollections.nypl.org/search/index?filters%5Btype%5D=cartographic&amp;keywords=" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">43</code> New York Public Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.nationaalarchief.nl/onderzoeken/zoeken?activeTab=maps&amp;rm=gallery" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">44</code> Nationaal Archief</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.uvaerfgoed.nl/beeldbank/nl/xsearch?metadata=kaarten" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">45</code> Universiteit van Amsterdam - Allard Pierson</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://kartenspeicher.gbv.de/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">46</code> Kartenspeicher</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://collection.sfomuseum.org/search/?q=map&amp;with_images=1" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">47</code> SFO Museum</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.si.edu/search/collection-images?edan_fq[0]=object_type%3A%22Maps%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">48</code> Smithsonian Institution</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.nb.no/search?mediatype=kart" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">49</code> Nasjonalbiblioteket</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.qdl.qa/en/search/site/?f%255B0%255D=document_source%3Aarchive_source&amp;f%5B0%5D=source_content_type%3AMap" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">50</code> Qatar Digital Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://imagesonline.bl.uk/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">51</code> British Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.digitale-sammlungen.de/en/search?query=&amp;sortField=scanDate&amp;filter=type_content%3A%22map%22&amp;filter=features%3A%22iiif%22" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">52</code> Bayerische Staatsbibliothek</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://dc.library.northwestern.edu/collections/267bed1b-f808-4c51-acb1-0288378819d2" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">53</code> Northwestern University Libraries</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://bndigital.bnportugal.gov.pt/records?page=1&amp;refine%5BDocumentType%5D%5B%5D=Cartografia&amp;sort=-PURL_ID,_score" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">54</code> Biblioteca Nacional de Portugal</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://cartotecadigital.icgc.cat/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">55</code> Institut Cartogràfic i Geològic de Catalunya</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://quod.lib.umich.edu/c/clark1ic?view=reslist;q1=clark1ic" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">56</code> University of Michigan Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://tessa2.lapl.org/digital/collection/maps/search" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">57</code> Los Angeles Public Library</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://lib.ugent.be/en/catalog?access=zoomable&amp;type=map" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">58</code> Universiteitsbibliotheek Gent</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.museabrugge.be/collecties/doorzoek?subject=cartografie" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">59</code> Musea Brugge</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://images-archives.ille-et-vilaine.fr/archives?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">60</code> Departmental archives of Ille-et-Vilaine</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://archives-numeriques.ville-bazas.fr/records?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">61</code> Municipal archives of Bazas</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.archives.ville-montbrison.fr/collection?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">62</code> Municipal archives of Montbrison</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://bibliotheque-numerique.aurillac.fr/notices?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">63</code> Municipal archives of Aurillac</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://bibliotheque-numerique.bibliotheque-agglo-stomer.fr/notices/?navigation=&amp;perpage=&amp;page=1&amp;sort=_score&amp;search=&amp;search_submit=1&amp;fulltext=1#search" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">64</code> Municipal archives of Saint-Omer</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://archives-numeriques.carmaux.fr/collection?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">65</code> Municipal archives of Carmaux</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://patrimoine.dieppe.fr/collection?navigation=&amp;perpage=&amp;page=1&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;child=1&amp;sort=_score#page" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">66</code> Municipal archives of Dieppe</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://patrimoine.abbeville.fr/collection/?navigation=&amp;perpage=&amp;page=1&amp;sort=_score&amp;search=&amp;fulltext=1&amp;bookmarks=1&amp;child=1#search" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">67</code> Municipal archives of Abbeville</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://bibliotheque-numerique-patrimoniale.cu-alencon.fr/records/?navigation=&amp;perpage=&amp;page=1&amp;sort=_score&amp;search=&amp;search_submit=1&amp;fulltext=1#search" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">68</code> Digital heritage library of Alençon</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://kartenspeicher.gbv.de/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">69</code> Kartenspeicher - GBV Common Library Network of the…</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://dams.antwerpen.be/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">70</code> Antwerp DAMS</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www5.kb.dk/maps/kortsa/2012/jul/kortatlas/subject206/en/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">71</code> Det Kgl. Bibliotek</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://geo.btaa.org/?f%5Bgbl_resourceClass_sm%5D%5B%5D=Maps" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">72</code> Big Ten Academic Alliance Geoportal</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.rijksmuseum.nl/en/collection/search?collectionSearchContext=Art&amp;page=1&amp;sortingType=Popularity&amp;facets[0].id=8679fe88e600495486dbf014ffe868af&amp;facets[0].nodeRelationType=HasObjectType" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">73</code> Rijksmuseum</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://www.finna.fi/Search/Results?filter[]=~format_ext_str_mv%3A%220%2FMap%2F%22&amp;filter[]=free_online_boolean%3A%221%22&amp;type=AllFields" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">74</code> Finna</p>
+    </div>
+  </a>
+  
+  
+  
+  <a class="iiif-card" href="https://goobi-viewer.univie.ac.at/viewer/sammlungen/karten/" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">75</code> Vienna University Library</p>
+    </div>
+  </a>
+  
+  
+</div>
+
+        </section>
+        <div class="post-tags">
+          
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    <div class="post-nav">
+      
+      <a class="navLink" href="http://localhost:1313/2026/mellon/posts/1-iiif/">← Lesson 1: IIIF</a>
+      
+      
+      <a class="navLink" href="http://localhost:1313/2026/mellon/posts/3-allmaps/">Lesson 3: Allmaps →</a>
+      
+    </div>
+  </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info" style="font-size:0.8em; text-align:center">
+    2026  • <a
+      href="https://github.com/athul/archie" target="blank">Archie</a> in <a target="blank" href="https://gohugo.io">Hugo</a> • Parts of this tutorial are adapted from <a href="https://uwm-libraries.github.io/allmaps-intro-workshop/" target="blank">Stephen Appel's intro to Allmaps workshop</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

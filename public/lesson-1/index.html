@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/2026/mellon/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=2026/mellon/livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Lesson 1: Georeferencing and IIIF - An introduction to public geospatial humanities</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Introducing core concepts of georeferencing and the international image interoperability framework (IIIF)" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="http://localhost:1313/2026/mellon/lesson-1/">
+  <meta property="og:site_name" content="An introduction to public geospatial humanities">
+  <meta property="og:title" content="Lesson 1: Georeferencing and IIIF">
+  <meta property="og:description" content="Introducing core concepts of georeferencing and the international image interoperability framework (IIIF)">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2026-04-24T02:01:58+05:30">
+    <meta property="article:modified_time" content="2026-04-24T02:01:58+05:30">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lesson 1: Georeferencing and IIIF">
+  <meta name="twitter:description" content="Introducing core concepts of georeferencing and the international image interoperability framework (IIIF)">
+
+        <link href="http://localhost:1313/2026/mellon/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:1313/2026/mellon/css/main.66339d2519731af52407b7d19f869fe408e84c457d73d3048972befa6499ad7f.css" />
+</head>
+<body>
+        <div class="content"><header style="background-color:dodgerblue;color:white;padding:2em;width:100%;">
+<div class="main">
+		<a href="http://localhost:1313/2026/mellon">An introduction to public geospatial humanities</a>
+	</div>
+	<i>A workshop for the Mellon Humanities Postdoctoral Fellowship Program</i>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title" style="font-size:2.4em;">Lesson 1: Georeferencing and IIIF</h1>
+          <div class="meta">Posted on Apr 24, 2026</div>
+        </div>
+        
+        <section class="body">
+          
+
+<div class='callout callout-custom' style='background-color:rgb(244, 228, 245); border: 1px dotted #d340e0;'>
+  <div class="callout-inner">
+    
+    📚 <u>Lesson plan</u>
+    <br />
+    This lesson introduces core concepts associated with georeferencing and the international image interoperability framework (IIIF).
+    
+    </div>
+</div>
+
+<h2 id="georeferencing">Georeferencing</h2>
+<p><a href="https://en.wikipedia.org/wiki/Georeferencing">Georeferencing</a> describes the process of overlaying scanned map images on their real-world locations. While this practice emerged as a way of transforming aerial and satellite photography into spatial data, it&rsquo;s commonly used to place historic maps on modern ones and compare change over time.</p>
+<h2 id="who-cares-about-georeferencing">Who cares about georeferencing?</h2>
+<p>Georeferencing scanned maps enables powerful spatial analysis. For example, you can:</p>
+<ol>
+<li>Extract information from a map, such as locations of topographic features like villages, mountains, rivers, or roads</li>
+<li>Compare or verify features by overlaying two maps</li>
+<li>Create a <em>mosaic</em> for viewing multiple sheets at once in large map series</li>
+</ol>
+<p>The Leventhal Center uses georeferencing of urban atlases in our <a href="https://atlascope.org">Atlascope</a> tool. Our team has georeferenced and mosaiqued over <strong>157</strong> urban atlases in the greater Boston area, making it easy to compare change over time across dozens of Massachusetts towns.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><img src="../../images/Atlascope.png" alt="Screenshot of the Atlascope viewer with georeferenced map sheets"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><em>Fig. 1: <a href="https://atlascope.org">Screenshot of Atlascope</a></em></td>
+      </tr>
+  </tbody>
+</table>
+<p>LMEC is in good company with many other institutions doing exciting work with georeferenced maps.</p>
+<p>Our colleagues at the <a href="https://uwm.edu/libraries/agsl/">American Geographical Society Library</a> (AGSL) at the University of Wisconsin-Milwaukee used Sanborn fire insurance maps to create a <a href="https://webgis.uwm.edu/agsl/sanborn/">Sanborn Web Map</a>. They&rsquo;ve also georeferenced aerial photography in their <a href="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712">Operation Birds Eye</a> discovery application.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><img src="../../images/birdseye.png" alt="Operation bird&rsquo;s eye"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><em>Fig. 2: <a href="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712">Operation Bird&rsquo;s Eye</a></em></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="how-do-people-georeference-maps">How do people georeference maps?</h2>
+<p>Traditionally, georeferencing has been done using <strong>GIS</strong> or &ldquo;geographic information systems.&rdquo; Georeferencing in GIS requires downloading software (like QGIS or ArcGIS Pro) and retrieving source files. For more detailed background, see <a href="https://gistbok-topics.ucgis.org/DC-01-030"><em>Georeferencing and Georectification</em></a> in the GIS&amp;T Body of Knowledge.</p>
+<p>Thanks to modern web-mapping tools, the process of georeferencing is more accessible to non-experts. For instance, the platform <a href="https://oldinsurancemaps.net/">OldInsuranceMaps.net</a>&mdash;designed and built by Adam Cox&mdash;provides an interface for crowdsourced georeferencing of Sanborn maps across the entire United States.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><img src="https://about.oldinsurancemaps.net/_assets/images/vsummary-031922.jpg" alt="OIM platform"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><em>Fig. 3: <a href="https://uwm.maps.arcgis.com/apps/webappviewer/index.html?id=4e066bb8e5664d189ac3e77c26d21712">OldInsuranceMaps.net</a></em></td>
+      </tr>
+  </tbody>
+</table>
+<p>In this lesson, we&rsquo;ll be using <a href="https://allmaps.org">Allmaps</a>, a web-based georeferencing tool, to get started with georeferencing. The Allmaps software depends on something called <a href="https://iiif.io">IIIF</a>&mdash;but what does <em>that</em> mean?</p>
+<h2 id="what-is-iiif">What is IIIF?</h2>
+<p><strong>IIIF</strong> (pronounced &ldquo;triple-eye-eff&rdquo;), or the <a href="https://iiif.io/">International Image Interoperability Framework</a>,
+is a set of open standards for delivering high-quality, attributed digital objects online at scale.</p>
+<p>IIIF provides a consistent way for institutions to share digital images, maps, manuscripts, artworks, and even audio/visual files across different platforms.
+Rather than locking media inside specific viewers or software tools, IIIF offers a <strong>standardized, flexible way</strong> to deliver these resources to any compatible application.</p>
+<p>This means:</p>
+<ol>
+<li>A digitized map from one library can be viewed side-by-side with one from another institution.</li>
+<li>A scholar can annotate or compare high-resolution images without downloading large files.</li>
+<li>Tools like <a href="https://allmaps.org/">Allmaps</a>, <a href="https://projectmirador.org/">Mirador</a>, and <a href="https://universalviewer.io/">Universal Viewer</a> can all read the same IIIF content.</li>
+</ol>
+<p>At its core, IIIF enables <em>interoperability</em>, making it easier for cultural heritage institutions, educators, and developers to build rich user experiences around media from all over the world.</p>
+
+
+<div class='callout callout-tip' style=''>
+  <div class="callout-inner">
+    
+    🔎
+    
+    <u><a href=https://iiif.io/get-started/how-iiif-works/ target="blank">Tip</a></u>
+    
+    <br />
+    Learn more at IIIF&#39;s website: https://iiif.io/get-started/how-iiif-works/
+    
+    </div>
+</div>
+
+<h2 id="finding-iiif-maps-to-use-in-allmaps">Finding IIIF maps to use in Allmaps</h2>
+<p><strong>Allmaps</strong> works great with large-scale maps like city, county, state, or country maps.
+While it’s possible to georeference small-scale maps (like world maps), distortion introduced by the georeferencing process can make them harder to work with.</p>
+<p>Any map hosted using IIIF will work in Allmaps.
+The IIIF Consortium <a href="https://iiif.io/guides/finding_resources/">lists some collections</a> including:</p>
+<ul>
+<li><a href="https://www.loc.gov/maps">Library of Congress</a></li>
+<li><a href="https://www.davidrumsey.com/luna/servlet/view/all">The David Rumsey Map Collection</a></li>
+<li><a href="https://uwm.edu/lib-collections/agsl-digital-map-collection/">UWM AGSL</a></li>
+</ul>
+<p>If you launch the <a href="https://editor.allmaps.org">Allmaps Editor</a>, you&rsquo;ll see maps hosted by various Allmaps partners (including LMEC) that are waiting to be georeferenced.</p>
+<p>To georeference a map from LMEC, simply pick a map from the <a href="https://collections.leventhalmap.org/">Center&rsquo;s digital collections portal</a> and select &ldquo;Georeference this map in Allmaps Editor&rdquo; on the right-hand side of the screen.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><img src="../../images/lmec-sidebar.png" alt="Screenshot showing the Allmaps georeferencing button in LMEC digital collection"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><em>Fig. 4: Allmaps direct from LMEC collections</em></td>
+      </tr>
+  </tbody>
+</table>
+<p>Other websites may require more sleuthing to find the manifest. On the David Rumsey Collection, it&rsquo;s listed under the <strong>share</strong> menu.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><img src="../../images/rumsey.png" alt="Screenshot of the menu option to find IIIF manifests in the David Rumsey Map Collection"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><em>Fig. 5: IIIF manifest in Rumsey collections</em></td>
+      </tr>
+  </tbody>
+</table>
+<p>If it’s not visible, tools like the <a href="https://seige.digital/en/detektiiif/">DetektIIIF browser extension</a> can help.</p>
+<h6 id="next-lesson-lesson-2"><a href="../lesson-2">Next lesson ↪</a></h6>
+
+        </section>
+        <div class="post-tags">
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info" style="font-size:0.6em;">
+    2026  • <a
+      href="https://github.com/athul/archie" target="blank">Archie</a> in <a target="blank" href="https://gohugo.io">Hugo</a> • Tutorials written by <a href="https://uwm-libraries.github.io/allmaps-intro-workshop/" target="blank">Stephen Appel (UWM-AGSL)</a> and adapted by <a href="https://www.leventhalmap.org/" target="blank">Ian Spangler (LMEC)</a> for the <a href="https://bostondh.org/symposium-2025/" target="blank">2025 Boston DH Symposium</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

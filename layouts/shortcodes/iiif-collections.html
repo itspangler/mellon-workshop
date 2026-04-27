@@ -1,0 +1,15 @@
+{{ $cols := .Get "cols" | default 3 }}
+{{ $collections := site.Data.iiif_map_collections }}
+
+<p><strong>{{ len $collections }}</strong> collections and counting, including:</p>
+<div class="iiif-collections-grid" style="grid-template-columns: repeat({{ $cols }}, 1fr);">
+{{ range $i, $c := $collections }}
+  {{ if ne $c .include false }}
+  <a class="iiif-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+    <div class="iiif-card-header">
+    <p style="font-size:0.8em;"><code style="background-color:red;color:white;padding:0.3em;margin:0.2em;">{{ add $i 1 }}</code> {{ $c.title | truncate 50 "…" }}</p>
+    </div>
+  </a>
+  {{ end }}
+  {{ end }}
+</div>

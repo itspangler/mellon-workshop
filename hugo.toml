@@ -1,0 +1,6 @@
+baseURL = 'https://workshops.itspangler.com/2026/mellon'
+languageCode = 'en-us'
+title = 'Some tools for doing public geospatial humanities'
+theme = 'archie'
+[markup.goldmark.renderer]
+unsafe = true

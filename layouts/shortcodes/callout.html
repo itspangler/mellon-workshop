@@ -1,0 +1,40 @@
+{{ $type := .Get "type" }}
+{{ $link := .Get "link" }}
+<div class='callout callout-{{ $type }}' style='{{ if eq $type "custom" }}{{ .Get "style" | safeCSS }}{{ end }}'>
+  <div class="callout-inner">
+    {{ if eq $type "alert" }}
+    🚨
+    {{ if $link }}
+    <u><a href={{ $link }} target="blank">Alert</a></u>
+    {{ else }}
+    <u>Alert</u>
+    {{ end }}
+    <br />
+    {{ .Get "text" }}
+    {{ else if eq $type "custom" }}
+    {{ .Get "emoji" }} <u>{{ .Get "title" }}</u>
+    <br />
+    {{ .Get "text" }}
+    {{ else if eq $type "tip" }}
+    🔎
+    {{ if $link }}
+    <u><a href={{ $link }} target="blank">Tip</a></u>
+    {{ else }}
+    <u>Tip</u>
+    {{ end }}
+    <br />
+    {{ .Get "text" }}
+    {{ else if eq $type "warning" }}
+    ⚠️ 
+    {{ if $link }}
+    <u><a href={{ $link }} target="blank">Warning</a></u>
+    {{ else }}
+    <u>Warning</u>
+    {{ end }}
+    <br />
+    {{ .Get "text" }}
+    {{ else}}
+    💡 {{ .Get "text" }}
+    {{ end }}
+    </div>
+</div>

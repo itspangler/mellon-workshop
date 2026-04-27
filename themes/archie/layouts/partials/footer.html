@@ -1,0 +1,19 @@
+<footer>
+  <div style="display:flex">
+    {{- range $index, $key := .Site.Params.Social -}}
+    {{- if hasPrefix $key.icon "simple:" -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}"><i class="si si-{{ substr $key.icon 7 }}"></i></a>
+    {{- else -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}">{{ template "feathericon" (dict "Icon" $key.icon "UseCDN" .Site.Params.useCDN) }}</a>
+    {{- end -}}
+    <a class="border"></a>
+    {{- end -}}
+  </div>
+  <div class="footer-info" style="font-size:0.6em;">
+    {{ dateFormat "2006" now }} {{ with .Site.Copyright }} {{ . }} | {{ end }} • <a
+      href="https://github.com/athul/archie" target="blank">Archie</a> in <a target="blank" href="https://gohugo.io">Hugo</a> • Tutorials written by <a href="https://uwm-libraries.github.io/allmaps-intro-workshop/" target="blank">Stephen Appel (UWM-AGSL)</a> and adapted by <a href="https://www.leventhalmap.org/" target="blank">Ian Spangler (LMEC)</a> for the <a href="https://bostondh.org/symposium-2025/" target="blank">2025 Boston DH Symposium</a>
+  </div>
+</footer>
+{{ if not hugo.IsServer }}
+{{ template "_internal/google_analytics.html" . }}
+{{ end }}

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html><head lang="en"><script src="/2026/mellon/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=2026/mellon/livereload" data-no-instant defer></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Lesson 1: IIIF - Some tools for doing public geospatial humanities</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Learn what IIIF is and how you can benefit from IIIF resources" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="http://localhost:1313/2026/mellon/posts/1-iiif/">
+  <meta property="og:site_name" content="Some tools for doing public geospatial humanities">
+  <meta property="og:title" content="Lesson 1: IIIF">
+  <meta property="og:description" content="Learn what IIIF is and how you can benefit from IIIF resources">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-04-27T02:01:58+05:30">
+    <meta property="article:modified_time" content="2026-04-27T02:01:58+05:30">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lesson 1: IIIF">
+  <meta name="twitter:description" content="Learn what IIIF is and how you can benefit from IIIF resources">
+
+        <link href="http://localhost:1313/2026/mellon/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://localhost:1313/2026/mellon/css/main.c2d3084b93a4894d8e4ab2c01f26e5d70cde629e3a3929a98415d12f25cc9c1b.css" />
+</head>
+<body>
+        <div class="content">
+<header>
+<div class="main">
+		<a href="http://localhost:1313/2026/mellon">Some tools for doing public geospatial humanities</a>
+	</div>
+	<i>A workshop for the Mellon Humanities Postdoctoral Fellowship Program</i>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title" style="font-size:2.4em;">Lesson 1: IIIF</h1>
+          <div class="meta">Posted on Apr 27, 2026</div>
+        </div>
+        
+        <section class="body">
+          
+
+<div class='callout callout-custom' style='background-color:rgb(244, 228, 245); border: 1px dotted #d340e0;'>
+  <div class="callout-inner">
+    
+    📚 <u>Lesson plan</u>
+    <br />
+    This lesson introduces core concepts associated with the international image interoperability framework (IIIF)
+    
+    </div>
+</div>
+
+<nav class="toc">
+  <details open>
+    <summary>Contents</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#whats-iiif">What&rsquo;s IIIF?</a></li>
+    <li><a href="#whats-the-problem">What&rsquo;s the problem?</a></li>
+    <li><a href="#how-does-iiif-work">How does IIIF work?</a></li>
+    <li><a href="#the-iiif-manifest">The IIIF Manifest</a></li>
+    <li><a href="#viewers">Viewers</a></li>
+    <li><a href="#iiif-tools">IIIF Tools</a></li>
+    <li><a href="#annotations">Annotations</a></li>
+    <li><a href="#liiive">Liiive</a></li>
+  </ul>
+</nav>
+  </details>
+</nav>
+<h2 id="whats-iiif">What&rsquo;s IIIF?</h2>
+<p>(pronounced &ldquo;triple-eye-eff&rdquo;)</p>
+<p>The <strong>International Image Interoperability Framework</strong>, or IIIF for short, is an image sharing protocol commonly used by libraries and museums. Even a basic understanding of it will unlock a vast, rich world of IIIF-enabled materials. Let&rsquo;s get into it.</p>
+<p><img src="../../images/iiif.png" alt="left_small"></p>
+<p>Like any other <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/The_web_standards_model">web standard</a>, IIIF describes a set of rules. In this case, the rules are about how to structure and share big images and metadata about those images. IIIF is particularly useful for sharing large, high-resolution images over the web&mdash;that&rsquo;s really the problem statement for IIIF implementation. Practitioners, implementers, and users across the world collaborate to sustain the IIIF protocol, building web applications and extensions around it. In that sense, IIIF also describes a <em>community</em>.</p>
+<p>This workshop focuses specifically on maps and geospatial applications for IIIF. Millions of digitized maps (as well as other resources, like paintings, photographs, and more) are publicly available as IIIF images. Most of the time, digital repositories will use the <img src="../../images/iiif.png" style="border:none;vertical-align:middle;" width=27px> logo to indicate that their collections are IIIF-compliant, so keep an eye out for that!</p>
+<h2 id="whats-the-problem">What&rsquo;s the problem?</h2>
+<p>Digital images can be huge. They can load inefficiently, sometimes not at all.</p>
+<p><img src="https://a-us.storyblok.com/f/1014956/1200x1601/7b80b6ad40/figure-1_photographing.jpg" alt="right"></p>
+<p>Even physically small photos can have a large file size when they are stored in a digital repository system and served to a user. The massive map shown here, <em>Kaart van het Brugse Vrije</em> by Pieter II Claeissens, takes up many gigabytes of storage space. <a href="https://www.leventhalmap.org/articles/mapathon-1571/">Digitizing it</a> required taking dozens of separate photographs and stitching them together in a software like Photoshop.</p>
+<p>Delivering a multi-gigabyte image through a web application is a really big payload. Unfortunately, that&rsquo;s exactly what most libraries and museums are often dealing with: very big, high-resolution digital versions of their physical materials. And those libraries and museums want those digital versions to be accessible to their patrons.</p>
+<p>IIIF responds to the problem of inaccessibility of very large, high-resolution images, by providing a set of rules and tools for exchanging these big images over the web.</p>
+<h2 id="how-does-iiif-work">How does IIIF work?</h2>
+<p>IIIF makes it easier to store images on a server and deliver those images to a user.</p>
+<p>Implementing IIIF&mdash;for example, in a library or museum&rsquo;s digital repository&mdash;divides images into smaller regions of <strong>tile pyramids</strong>. These pyramids make the image available at different resolutions, preserving the fidelity of deep zoom without having to deal with the payload of a massive file size all at once.</p>
+<p>The interactive below provides a great visualization for how tile pyramids work. An image is shown on the left, while its underlying tile pyramid is shown on the right. As you zoom into the image, the relevant section of the tile pyramid is highlighted in gray.</p>
+<p>Try zooming into the image and panning around!</p>
+<iframe width="100%" height="470px" frameborder="0"
+  src="https://observablehq.com/embed/@allmaps/tile-pyramid?cells=viz"></iframe>
+
+
+<div class='callout callout-tip' style=''>
+  <div class="callout-inner">
+    
+    🔎
+    
+    <u>Tip</u>
+    
+    <br />
+    IIIF tile pyramids follow the same computational logic that digital mapping tools like Google used for many years to serve global satellite imagery or base maps. It takes forever to load a single image of the whole world, so most web maps chunk those images into smaller &#39;XYZ tiles.&#39;
+    
+    </div>
+</div>
+
+<h2 id="the-iiif-manifest">The IIIF Manifest</h2>
+<p>The prime unit in IIIF is something called a <strong>Manifest</strong>. You can think of this as a container for all the components of a IIIF resource, just like a <a href="https://en.wikipedia.org/wiki/Manifest_(transportation)">ship manifest that lists passengers or cargo</a>.</p>
+<p>In our case, the cargo includes the pixels of the digital resource, its metadata, and any optional parameters for how the image should be displayed.</p>
+<p>IIIF allows images to be delivered according to a number of parameters, including size, zoomed portion, rotated view, color, and more. All of these settings are designated by changing portions of the URL for an Image API resource.</p>
+<p>Take, for instance, <a href="https://collections.leventhalmap.org/search/commonwealth:9g54xk528">this bird&rsquo;s eye view map</a> from the Leventhal Center&rsquo;s digital collections. All of the maps in the Leventhal Center&rsquo;s collections are IIIF compliant.</p>
+<p>Navigate to the object record in the Leventhal Center&rsquo;s collections by clicking the link below:</p>
+<a target="blank" href="https://collections.leventhalmap.org/search/commonwealth:9g54xk528">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>https://collections.leventhalmap.org/search/commonwealth:9g54xk528
+</span></span></code></pre></div></a>
+<p>At this page, you&rsquo;ll find the map image embedded in a viewer where you can deeply zoom and pan around the image.</p>
+<p>Scroll down a bit, and you&rsquo;ll see a button that says &ldquo;IIIF Manifest.&rdquo; Again, just look for the <img src="../../images/iiif.png" style="border:none;vertical-align:middle;" width=27px> logo. When you click that button, a new tab opens with a big jumble of <a href="https://www.json.org/json-en.html">JSON</a> (JavaScript Object Notation) data.</p>
+<p>That big JSON jumble is our IIIF Manifest for the bird&rsquo;s eye view map! Try scrolling around the embedded Manifest below, or even opening the Manifest in a new tab.</p>
+<p>What kinds of metadata values do you see?</p>
+<p><img src="https://iiif.digitalcommonwealth.org/iiif/2/commonwealth:9g54xk53j/full/500,/0/default.jpg" alt="left"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;@context&#34;</span>:<span style="color:#e6db74">&#34;http://iiif.io/api/presentation/2/context.json&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528/manifest&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;sc:Manifest&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Bird&#39;s eye view of Boston&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;thumbnail&#34;</span>:{
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528/thumbnail&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;service&#34;</span>:{
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;@context&#34;</span>:<span style="color:#e6db74">&#34;http://iiif.io/api/image/2/context.json&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://iiif.digitalcommonwealth.org/iiif/2/commonwealth:9g54xk53j&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;profile&#34;</span>:<span style="color:#e6db74">&#34;http://iiif.io/api/image/2/level2.json&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>   },
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;viewingHint&#34;</span>:<span style="color:#e6db74">&#34;individuals&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;metadata&#34;</span>:[
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Title&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;Bird&#39;s eye view of Boston&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Date&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;1850&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Creator&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Creator&#34;</span>,
+</span></span><span style="display:flex;"><span>            [
+</span></span><span style="display:flex;"><span>               <span style="color:#e6db74">&#34;Bachmann, John, fl. 1849-1885&#34;</span>
+</span></span><span style="display:flex;"><span>            ]
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Publisher&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;New York : Williams \u0026 Stevens&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Type of Resource&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Cartographic&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Still image&#34;</span>
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Format&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;Maps&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Language&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;English&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Subjects&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;Boston (Mass.)--Aerial views&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Location&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;Boston Public Library&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Collection (local)&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;Norman B. Leventhal Map \u0026 Education Center Collection&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Identifier&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;06_01_008059&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;G3764.B6A3 1850 .B33&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;39999065650085&#34;</span>
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;Terms of Use&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;value&#34;</span>:[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;No known copyright restrictions.&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;No known restrictions on use.&#34;</span>
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>   ],
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;attribution&#34;</span>:<span style="color:#e6db74">&#34;No known copyright restrictions. No known restrictions on use.&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;seeAlso&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;sequences&#34;</span>:[
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;sc:Sequence&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;canvases&#34;</span>:[
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528/canvas/9g54xk53j&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;sc:Canvas&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;label&#34;</span>:<span style="color:#e6db74">&#34;image 1&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;width&#34;</span>:<span style="color:#ae81ff">8983</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;height&#34;</span>:<span style="color:#ae81ff">6709</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;images&#34;</span>:[
+</span></span><span style="display:flex;"><span>                  {
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528/annotation/9g54xk53j&#34;</span>,
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;oa:Annotation&#34;</span>,
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&#34;motivation&#34;</span>:<span style="color:#e6db74">&#34;sc:painting&#34;</span>,
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&#34;resource&#34;</span>:{
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk53j/large_image&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;dctypes:Image&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;format&#34;</span>:<span style="color:#e6db74">&#34;image/jpeg&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;width&#34;</span>:<span style="color:#ae81ff">8983</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;height&#34;</span>:<span style="color:#ae81ff">6709</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;service&#34;</span>:{
+</span></span><span style="display:flex;"><span>                           <span style="color:#f92672">&#34;@context&#34;</span>:<span style="color:#e6db74">&#34;http://iiif.io/api/image/2/context.json&#34;</span>,
+</span></span><span style="display:flex;"><span>                           <span style="color:#f92672">&#34;@id&#34;</span>:<span style="color:#e6db74">&#34;https://iiif.digitalcommonwealth.org/iiif/2/commonwealth:9g54xk53j&#34;</span>,
+</span></span><span style="display:flex;"><span>                           <span style="color:#f92672">&#34;profile&#34;</span>:<span style="color:#e6db74">&#34;http://iiif.io/api/image/2/level2.json&#34;</span>
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                     },
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&#34;on&#34;</span>:<span style="color:#e6db74">&#34;https://ark.digitalcommonwealth.org/ark:/50959/9g54xk528/canvas/9g54xk53j&#34;</span>
+</span></span><span style="display:flex;"><span>                  }
+</span></span><span style="display:flex;"><span>               ]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>   ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In the Leventhal Center&rsquo;s digital collections, you can access the IIIF Manifest of any object by simply suffixing the normal URL with <code>/manifest</code>, like so:</p>
+<a target="blank" href="https://collections.leventhalmap.org/search/commonwealth:9g54xk528/manifest">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>https://collections.leventhalmap.org/search/commonwealth:9g54xk528/manifest
+</span></span></code></pre></div></a>
+<p>That&rsquo;s not a universal convention, but it does make working with the Leventhal Center&rsquo;s IIIF materials quite easy.</p>
+<h2 id="viewers">Viewers</h2>
+<p>IIIF viewers are some of the most common IIIF applications. Universal Viewer is a popular example. Check out the bird&rsquo;s eye view of Boston and the Claeissens map below, both embedded in Universal Viewer frames:</p>
+<div style="display:flex; gap:2rem;">
+  <div style="flex:1;">
+    <iframe src="https://uv-v4.netlify.app/uv.html#?manifest=https%3A%2F%2Fark.digitalcommonwealth.org%2Fark%3A%2F50959%2F9g54xk528%2Fmanifest&c=0&m=0&cv=0&config=&locales=en-GB%3AEnglish+%28GB%29%2Ccy-GB%3ACymraeg%2Cfr-FR%3AFran%C3%A7ais+%28FR%29%2Cpl-PL%3APolski%2Csv-SE%3ASvenska&xywh=-2218%2C230%2C13417%2C6248&r=0&panelOpen=false" width="100%" height="300" allowfullscreen frameborder="0" title="Bird's eye view of Boston"></iframe>
+  </div>
+  <div style="flex:1;">
+    <iframe src="https://uv-v4.netlify.app/uv.html#?manifest=https%3A%2F%2Fdam.museabrugge.be%2Fiiif%2F3%2F18676%2Fmanifest.json&c=0&m=0&cv=0&config=&locales=en-GB%3AEnglish+%28GB%29%2Ccy-GB%3ACymraeg%2Cfr-FR%3AFran%C3%A7ais+%28FR%29%2Cpl-PL%3APolski%2Csv-SE%3ASvenska&xywh=-4780%2C-5084%2C62283%2C42038&r=0&panelOpen=false" width="100%" height="300" allowfullscreen frameborder="0" title="Map of the Liberty of Bruges"></iframe>
+  </div>
+</div>
+<h2 id="iiif-tools">IIIF Tools</h2>
+<p>At the Leventhal Center, we built a tool for manipulating and cropping IIIF images. Try it out at this link: <a href="https://iiif-tools.leventhal.center">https://iiif-tools.leventhal.center</a></p>
+<p>As a challenge, try pasting the bird&rsquo;s eye view map&mdash;or any IIIF map&mdash;into IIIF Tools. Load the image, then copy the &ldquo;IIIF Endpoint.&rdquo;</p>
+<p>That &ldquo;IIIF Endpoint&rdquo; URL loads the actual image data. It&rsquo;s also known as the <code>info.json</code> file.</p>
+<p>If you paste it into the input bar below, you should be able to see your chosen image displayed in the tile pyramid viewer!</p>
+<iframe width="100%" height="520" frameborder="0"
+  src="https://observablehq.com/embed/@allmaps/tile-pyramid?cells=viewof+tileSourceUrl%2Cviz"></iframe>
+<h2 id="annotations">Annotations</h2>
+<p>Annotations are some of the most powerful use cases for IIIF images. They are exactly what they sound like: annotations on the canvas of a IIIF image. At their essence, annotations are a method for associating descriptive or interpretive information <em>about</em> the image with specific pixel coordinates <em>in</em> the image.</p>
+<p>For researchers, these could include:</p>
+<ul>
+<li>Transcribing documents</li>
+<li>Commenting or analysis of image content</li>
+<li>Highlighting specific areas of the item</li>
+</ul>
+<p>These annotation markups can be stored in a IIIF Manifest.</p>
+<p>There are a few different web apps and libraries for creating annotations, including <a href="https://annotorious.dev">Annotorious</a> and <a href="https://training.iiif.io/advanced_iiif/modules/annotations/annotations-exercises.html">Mirador</a>.</p>
+<h2 id="liiive">Liiive</h2>
+<p>My favorite annotation tool is <a href="https://liiive.now">liiive.now</a>, a real-time, collaborative annotation platform for IIIF images:</p>
+<a href="https://liiive.now" target="blank">
+<p><img src="../../images/liiive.png" alt="liiive"></p>
+</a>
+<p>Let&rsquo;s try it out with an urban atlas from the Leventhal Center&rsquo;s collections.</p>
+<p>Given this urban atlas&hellip;</p>
+<a href="https://www.digitalcommonwealth.org/search/commonwealth:bc389528s" target="blank">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>https://www.digitalcommonwealth.org/search/commonwealth:bc389528s
+</span></span></code></pre></div></a>
+<p>&hellip; we can access the IIIF manifest at&hellip;</p>
+<a href="https://www.digitalcommonwealth.org/search/commonwealth:bc389528s/manifest" target="blank">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>https://www.digitalcommonwealth.org/search/commonwealth:bc389528s/manifest
+</span></span></code></pre></div></a>
+<p>&hellip; and paste that Manifest into our <a href="https://iiif-tools.leventhal.center">IIIF Tools</a> to select  a particular map from the atlas.</p>
+<p>I picked this image:</p>
+<p><img src="https://iiif.digitalcommonwealth.org/iiif/2/commonwealth:1g05j0772/full/1200,/0/default.jpg" alt=""></p>
+<p>Click this link to join the liiive.now room and start annotating: <a href="https://liiive.now/s1ht84vnbir7">https://liiive.now/s1ht84vnbir7</a></p>
+
+
+<div class='callout callout-warning' style=''>
+  <div class="callout-inner">
+    
+    ⚠️ 
+    
+    <u>Warning</u>
+    
+    <br />
+    This liiive.now room is temporary, so the URL above won&#39;t work after the day of this presentation. However, you can always make a new room for free and try it out again.
+    
+    </div>
+</div>
+
+
+        </section>
+        <div class="post-tags">
+          
+          
+          
+        </div>
+      </div>
+
+      
+      
+    </div>
+
+    <div class="post-nav">
+      
+      
+      <a class="navLink" href="http://localhost:1313/2026/mellon/posts/2-georeferencing/">Lesson 2: Georeferencing →</a>
+      
+    </div>
+  </article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info" style="font-size:0.8em; text-align:center">
+    2026  • <a
+      href="https://github.com/athul/archie" target="blank">Archie</a> in <a target="blank" href="https://gohugo.io">Hugo</a> • Parts of this tutorial are adapted from <a href="https://uwm-libraries.github.io/allmaps-intro-workshop/" target="blank">Stephen Appel's intro to Allmaps workshop</a>
+  </div>
+</footer>
+
+</div>
+    </body>
+</html>

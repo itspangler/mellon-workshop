@@ -1,0 +1,8 @@
+{{- if .Page.TableOfContents -}}
+<nav class="toc">
+  <details open>
+    <summary>Contents</summary>
+    {{ .Page.TableOfContents }}
+  </details>
+</nav>
+{{- end -}}

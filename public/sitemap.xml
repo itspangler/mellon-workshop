@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:1313/2026/mellon/posts/1-iiif/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/posts/2-georeferencing/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/posts/3-allmaps/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/posts/4-more/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/posts/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/</loc>
+    <lastmod>2026-04-27T02:01:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/2026/mellon/tags/</loc>
+  </url>
+</urlset>
