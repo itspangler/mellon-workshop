@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/2026/mellon/posts/1-iiif/</loc>
+    <loc>http://localhost:1313/posts/1-iiif/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/posts/2-georeferencing/</loc>
+    <loc>http://localhost:1313/posts/2-georeferencing/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/posts/3-allmaps/</loc>
+    <loc>http://localhost:1313/posts/3-allmaps/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/posts/4-more/</loc>
+    <loc>http://localhost:1313/posts/4-more/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2026-04-27T02:01:58+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/2026/mellon/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>

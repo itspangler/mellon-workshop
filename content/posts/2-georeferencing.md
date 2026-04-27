@@ -109,4 +109,4 @@ The [DetektIIIF browser extension](https://seige.digital/en/detektiiif/) is an e
 
 Finally, the Allmaps project publishes a running list of [IIIF map collections](https://github.com/allmaps/iiif-map-collections/blob/main/iiif-map-collections.yml), which is a great starting point for finding IIIF maps.
 
-{{< iiif-collections cols="3" >}}
+{{< iiif-collections cols="5" >}}
