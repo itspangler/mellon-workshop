@@ -1,4 +1,4 @@
-baseURL = 'https://workshops.itspangler.com/2026/mellon'
+baseURL = 'https://mellon-workshop.netlify.app'
 languageCode = 'en-us'
 title = 'Some tools for doing public geospatial humanities'
 theme = 'archie'
